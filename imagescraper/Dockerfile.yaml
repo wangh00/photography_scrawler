@@ -1,0 +1,17 @@
+FROM python:3.10
+
+# 设置工作目录为 /code
+WORKDIR /rsnmb
+
+# 将当前目录下的所有文件复制到镜像内的 /code 目录中
+COPY . /rsnmb
+
+# 在镜像内创建一个目录，用于存储爬取到的图片
+RUN mkdir -p /rsnmb/down_img
+
+
+# 安装 Scrapy 项目所需的依赖
+RUN pip install -r requirements.txt
+
+# 定义容器启动时要执行的命令
+CMD ["scrapy", "crawl", "rsnmb"]
